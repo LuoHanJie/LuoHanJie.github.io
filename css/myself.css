@@ -1,3 +1,49 @@
+body {
+	height: 100%;
+}
+
+.wrapper {
+	margin-right: 100px;
+	margin-left: 100px;
+	max-width: none;
+}
+
 input {
 	width: 200px;
+}
+
+li {
+	list-style: none;
+	margin: 5px;
+}
+
+.list {
+	padding: 10px;
+	background-color: rgb(255,255,238);
+}
+
+.subtitle {
+	color: #0600D1;
+	padding: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid black;
+}
+.notice {
+	font-size: 12px;
+	font-style: normal;
+	display: inline-block;
+	background: #7D9008;
+	border-radius: 4px;
+	padding: 0 3px;
+	color: #eff;
+	margin-right: 5px;
+}
+
+i {
+	background-color: rgb(240,240,240);
+}
+
+.com {
+	color:#008000;
 }
