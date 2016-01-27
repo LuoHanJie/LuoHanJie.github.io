@@ -39,4 +39,87 @@ document.writeln( result.length ); // 0</pre>
 		<p>原来 <code>jQuery.fn = jQuery.prototype</code>也即<code>$.fn = jQuery.prototype</code></p>
 		<p><code>prototype</code>属性使您有能力向对象添加属性和方法。</p>
 	</li>
+	<li class="list">
+		<p>Spy</p>
+		<p><code>Spy</code>能监测任何<code>function</code>的调用和方法参数的调用痕迹。需使用2个特殊的Matcher：</p>
+		<p>
+			<pre>toHaveBeenCalled：可以检查<code>function</code>是否被调用过,
+toHaveBeenCalledWith： 可以检查传入参数是否被作为参数调用过。</pre>
+		</p>
+		<p>SpyOn</p>
+		<p>使用<code>spyOn(obj,'function')</code>来为<code>obj</code>的<code>function</code>方法声明一个<code>Spy</code>。不过要注意的一点是，对<code>Spy</code>函数的调用并不会影响真实的值。</p>
+		<pre>
+describe("A spy", function() {
+  var foo, bar = null;
+
+  beforeEach(function() {
+    foo = {
+      setBar: function(value) {
+        bar = value;
+      }
+    };
+
+    spyOn(foo, 'setBar');
+
+    foo.setBar(123);
+    foo.setBar(456, 'another param');
+  });
+
+  it("tracks that the spy was called", function() {
+    expect(foo.setBar).toHaveBeenCalled();
+  });
+
+  it("tracks all the arguments of its calls", function() {
+    expect(foo.setBar).toHaveBeenCalledWith(123);
+    expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
+  });
+
+  it("stops all execution on a function", function() {
+    // Spy的调用并不会影响真实的值，所以bar仍然是null。
+    expect(bar).toBeNull();
+  });
+});
+		</pre>
+		<p>and.callThrough</p>
+		<p>如果在<code>spyOn</code>之后链式调用<code>and.callThrough</code>，那么<code>Spy</code>除了跟踪所有的函数调用外，还会直接调用函数额真实实现，因此<code>Spy</code>返回的值就是函数真实被调用后实际的值了。</p>
+		<pre>
+...
+  spyOn(foo, 'getBar').and.callThrough();
+  foo.setBar(123);
+  fetchedBar = foo.getBar();
+
+  it("tracks that the spy was called", function() {
+    expect(foo.getBar).toHaveBeenCalled();
+  });
+
+  it("should not effect other functions", function() {
+    expect(bar).toEqual(123);
+  });
+
+  it("when called returns the requested value", function() {
+    expect(fetchedBar).toEqual(123);
+  });
+});
+and.stub
+		</pre>
+		<p>and.stub</p>
+		<p>在调用<code>and.callThrough</code>后，如果你想阻止<code>spi</code>继续对实际值产生影响，你可以调用<code>and.stub</code>。也就是说，<code>and.stub</code>是将<code>spi</code>对实际实现的影响还原到最终的状态——不影响实际值。</p>
+		<pre>
+spyOn(foo, 'setBar').and.callThrough();
+
+foo.setBar(123);
+// 实际的bar=123
+expect(bar).toEqual(123);
+
+// 调用and.stub()后，之后调用foo.setBar将不会影响bar的值。
+foo.setBar.and.stub();
+
+foo.setBar(456);
+expect(bar).toBe(123);
+
+bar = null;
+foo.setBar(123);
+expect(bar).toBe(null);
+		</pre>
+	</li>
 </div>
