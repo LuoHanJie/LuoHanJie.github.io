@@ -4,8 +4,30 @@ title: 新的html5标签，number
 ---
 <h2>{{ page.title }}</h2>
 <p>{{ page.date | date_to_string }}</p>
-<p>今天了解了一个新的html5标签，可以加减数字</p>
-<p>< input type="number" min="0" max="1000" value="0" ></p>
-
-<input type="number" min="0" max="1000" value="0"/>
-
+<div>
+	<li class="list">
+		<h3>新的html5标签，可以加减数字</h3>
+		<p>< input type="number" min="0" max="1000" value="0" ></p>
+		<input type="number" min="0" max="1000" value="0"/>
+	</li>
+	<li class="list">
+		<h3><code>jQuery.noop()</code>函数是一个空函数，它什么也不做.</h3>
+		<p>当某些时候你需要传入函数参数，而且希望它什么也不做的时候，你可以使用该函数，也无需再新建一个空的函数。
+		</p>
+		<span>该函数属于全局<code>jQuery</code>对象。</span>
+		<h4><p class="subtitle">语法</p></h4>
+		<p>jQuery<span class="notice">1.4 新增</span>该 <span class="notice">静态函数</span>。</p>
+		<pre>jQuery.noop()</pre>
+		<h4><p class="subtitle">返回值</p></h4>
+		<code>jQuery.noop()</code>函数没有返回值(也可视作返回<i>undefined</i>)。
+		<h4><p class="subtitle">示例&说明</p></h4>
+		<p><code>jQuery.noop()</code>函数的源代码部分如下：</p>
+		<pre>noop: function() {}</pre>
+		<p>以下jQuery示例代码用于演示<code>jQuery.noop()</code>函数的具体用法：</p>
+		<pre>
+<span class="com">// 传入一个空函数作为参数，返回一个空数组</span>
+<span class="com">// 空函数的返回值为undefined，而null或undefined值会被$.map()忽略掉。</span>
+var result = $.map( [1, 2, 3], $.noop );
+document.writeln( result.length ); // 0</pre>
+	</li>
+</div>
