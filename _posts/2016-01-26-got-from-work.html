@@ -24,10 +24,19 @@ title: got from every work
 		<p><code>jQuery.noop()</code>函数的源代码部分如下：</p>
 		<pre>noop: function() {}</pre>
 		<p>以下jQuery示例代码用于演示<code>jQuery.noop()</code>函数的具体用法：</p>
-		<pre>
-<span class="com">// 传入一个空函数作为参数，返回一个空数组</span>
+		<pre><span class="com">// 传入一个空函数作为参数，返回一个空数组</span>
 <span class="com">// 空函数的返回值为undefined，而null或undefined值会被$.map()忽略掉。</span>
 var result = $.map( [1, 2, 3], $.noop );
 document.writeln( result.length ); // 0</pre>
+	</li>
+	<li class="list">
+		<code>$.fn</code>是指<code>jQuery</code>的命名空间，加上<code>fn</code>上的方法及属性，会对每一个<code>jQuery</code>实例都有效。如扩展<code>$.fn.abc()</code>那么你可以这样子：
+		<pre>$("#div").abc();</pre>
+		<code>$.fn</code>是什么东西呢？查看<code>jQuery</code>代码，就不难发现。
+		<pre>jQuery.fn = jQuery.prototype = {
+　　　init: function( selector, context ) {//....　
+};</pre>
+		<p>原来 <code>jQuery.fn = jQuery.prototype</code>也即<code>$.fn = jQuery.prototype</code></p>
+		<p><code>prototype</code>属性使您有能力向对象添加属性和方法。</p>
 	</li>
 </div>
